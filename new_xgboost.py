@@ -4,8 +4,6 @@ from typing import Tuple
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 
-import preprocessing
-
 import matplotlib.pyplot as plt
 
 
@@ -44,14 +42,7 @@ def new_loss_function(lambda_, pdp):
         plt.legend()
         plt.show()
 
-        print('X_train shape:', X_train.shape)
-        print('pdp shape:', pdp.shape)
-        print('X shape:', X.shape)
-
         X_train = X[X['interpolated'] == True]['yhat'].values
-
-        print('X_train shape:', X_train.shape)
-        print(X_train)
 
         grad = gradient(predt, dtrain, lambda_, X_train)
         hess = hessian(predt, dtrain, lambda_, X_train)
@@ -62,7 +53,6 @@ def new_loss_function(lambda_, pdp):
     return obj_sq
 
 def xgboost_new(X, y, pdp, lambda_):
-    # X = preprocessing.trainer(X)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     dtrain = xgb.DMatrix(X_train, label=y_train)
