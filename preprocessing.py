@@ -62,5 +62,5 @@ def make_profile(X, y, model):
     # print(X.columns.tolist())
     pdp = exp.model_profile(variables = X.columns.tolist(), verbose=False)
     result = pdp.result[['_vname_', '_x_', '_yhat_']]
-    result.columns = [['variable', 'x', 'yhat']]
+    result.columns = ['variable', 'x', 'yhat']
     return result
